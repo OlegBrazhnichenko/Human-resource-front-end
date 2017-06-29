@@ -1,0 +1,86 @@
+<md-content class="md-padding">
+    <form ng-submit="$ctrl.submit()" name="employeeForm">
+        <md-input-container class="md-block">
+            <label>Name</label>
+            <input required name="employeeName" ng-model="$ctrl.employeeName">
+            <div ng-messages="employeeForm.employeeName.$error">
+                <div ng-message="required">This field is required.</div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+            <label>Surname</label>
+            <input required name="employeeSurname" ng-model="$ctrl.employeeSurname">
+            <div ng-messages="employeeForm.companyName.$error">
+                <div ng-message="required">This field is required</div>
+            </div>
+        </md-input-container>
+        <md-input-container>
+            <label>Enter your birthday</label>
+            <md-datepicker ng-model="$ctrl.employeeBirthday" name="employeeBirthday" required></md-datepicker>
+
+            <div ng-messages="employeeForm.employeeBirthday.$error">
+                <div ng-message="valid">The entered value is not a date!</div>
+                <div ng-message="required">This date is required!</div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+            <label>Email</label>
+            <input required type="email" name="employeeEmail" ng-model="$ctrl.employeeEmail"
+                   minlength="5" maxlength="100" ng-pattern="/^.+@.+\..+$/" />
+
+            <div ng-messages="employeeForm.employeeEmail.$error" role="alert">
+                <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+                    Your email must be between 10 and 100 characters long and look like an e-mail address.
+                </div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+            <label>Phone number</label>
+            <input required name="employeePhoneNumber" minlength="8" ng-model="$ctrl.employeePhoneNumber">
+            <div ng-messages="employeeForm.employeePhoneNumber.$error">
+                <div ng-message="required">This field is required.</div>
+                <div ng-message="minlength">Min-length 8 numbers</div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+            <label>Address</label>
+            <input required name="employeeAddress" ng-model="$ctrl.employeeAddress">
+            <div ng-messages="employeeForm.employeeAddress.$error">
+                <div ng-message="required">This field is required.</div>
+            </div>
+        </md-input-container>
+        <md-autocomplete flex required ng-if="!$ctrl.creatingMode" ng-cloak
+                         md-input-name="companyField"
+                         md-selected-item="$ctrl.selectedCompany"
+                         md-search-text="$ctrl.searchCompany"
+                         md-items="company in $ctrl.querySearch($ctrl.searchCompany, $ctrl.companies)"
+                         md-item-text="company.name"
+                         md-require-match
+                         md-min-length="0"
+                         md-floating-label="Choose company">
+            <md-item-template>
+                <span md-highlight-text="$ctrl.searchCompany">{{company.name}}</span>
+            </md-item-template>
+            <div ng-messages="employeeForm.companyField.$error" ng-if="employeeForm.companyField.$touched" >
+                <div ng-message="required">You must choose company</div>
+                <div ng-message="md-require-match">
+                    Please select an existing company or
+                    <a ng-click="$ctrl.newCompany($ctrl.searchCompany)">create a new one!</a>
+                </div>
+            </div>
+            <md-not-found>
+                No companies matching "{{$ctrl.searchCompany}}" were found.
+                <a ng-click="$ctrl.newCompany($ctrl.searchCompany)">Create a new one!</a>
+            </md-not-found>
+        </md-autocomplete>
+        <companies ng-if="$ctrl.creatingMode" on-cancel-company-create="$ctrl.onCancelCompanyCreate()" item="$ctrl.item"></companies>
+        <md-input-container class="md-block">
+            <label>Role</label>
+            <input required name="role" ng-model="$ctrl.role">
+            <div ng-messages="employeeForm.role.$error">
+                <div ng-message="required">This field is required.</div>
+            </div>
+        </md-input-container>
+        <md-button class="md-raised md-primary" type="submit" ng-disabled="employeeForm.$invalid || employeeForm.$pristine">Submit</md-button>
+    </form>
+</md-content>

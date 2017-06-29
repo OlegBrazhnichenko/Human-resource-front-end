@@ -1,0 +1,24 @@
+<md-input-container class="md-block">
+	<label>New company name</label>
+	<input required name="companyName" ng-model="$ctrl.item.name">
+	<div ng-messages="workHistoryForm.companyName.$error">
+		<div ng-message="required">Company must have name.</div>
+	</div>
+</md-input-container>
+<md-input-container class="md-block">
+	<label>NIPT</label>
+	<input required name="nipt" ng-model="$ctrl.item.nipt">
+	<div ng-messages="workHistoryForm.nipt.$error">
+		<div ng-message="required">Nipt is required.</div>
+	</div>
+</md-input-container>
+<md-input-container class="md-block">
+	<label>New company address</label>
+	<input required name
+					="address" ng-model="$ctrl.item.address">
+	<div ng-messages="workHistoryForm.address.$error">
+		<div ng-message="required">This is required.</div>
+	</div>
+</md-input-container>
+<a href="" ng-if="$ctrl.isAbleToCancel()" ng-click="$ctrl.onCancelCompanyCreate()">Cancel creation</a>
+<br><br>

@@ -1,0 +1,81 @@
+<div layout="column" ng-cloak>
+    <md-content class="md-padding">
+        <form ng-submit="$ctrl.submit()" name="workHistoryForm">
+            <md-autocomplete flex required ng-cloak
+                             md-input-name="employeeField"
+                             md-selected-item="$ctrl.selectedEmployee"
+                             md-search-text="$ctrl.searchEmployee"
+                             md-items="employee in $ctrl.querySearch($ctrl.searchEmployee, $ctrl.employees)"
+                             md-item-text="employee.name"
+                             md-min-length="0"
+                             md-require-match
+                             md-floating-label="Choose employee">
+                <md-item-template>
+                    <span md-highlight-text="$ctrl.searchText">{{employee.name}}</span>
+                </md-item-template>
+                <div ng-messages="workHistoryForm.employeeField.$error" ng-if="workHistoryForm.employeeField.$touched" >
+                    <div ng-message="required">You must choose company</div>
+                    <div ng-message="md-require-match">
+                        Please select an existing employee.
+                    </div>
+                </div>
+                <md-not-found>
+                    No companies matching "{{$ctrl.searchText}}" were found.
+                </md-not-found>
+            </md-autocomplete>
+            <md-autocomplete flex required ng-if="!$ctrl.creatingMode" ng-cloak
+                             md-input-name="companyField"
+                             md-selected-item="$ctrl.selectedCompany"
+                             md-search-text="$ctrl.searchCompany"
+                             md-items="company in $ctrl.querySearch($ctrl.searchCompany, $ctrl.companies)"
+                             md-item-text="company.name"
+                             md-require-match
+                             md-min-length="0"
+                             md-floating-label="Choose company">
+                <md-item-template>
+                    <span md-highlight-text="$ctrl.searchCompany">{{company.name}}</span>
+                </md-item-template>
+                <div ng-messages="workHistoryForm.companyField.$error" ng-if="workHistoryForm.companyField.$touched" >
+                    <div ng-message="required">You must choose company</div>
+                    <div ng-message="md-require-match">
+                        Please select an existing company or
+                        <a ng-click="$ctrl.newCompany($ctrl.searchCompany)">create a new one!</a>
+                    </div>
+                </div>
+                <md-not-found>
+                    No companies matching "{{$ctrl.searchCompany}}" were found.
+                    <a ng-click="$ctrl.newCompany($ctrl.searchCompany)">Create a new one!</a>
+                </md-not-found>
+            </md-autocomplete>
+            <companies ng-if="$ctrl.creatingMode" on-cancel-company-create="$ctrl.onCancelCompanyCreate()" item="$ctrl.item"></companies>
+
+            <md-input-container>
+                <label>Enter start date</label>
+                <md-datepicker ng-model="$ctrl.startDate"  name="startDateField" required></md-datepicker>
+
+                <div ng-messages="workHistoryForm.startDateField.$error">
+                    <div ng-message="valid">The entered value is not a date!</div>
+                    <div ng-message="required">This date is required!</div>
+                </div>
+            </md-input-container>
+            <md-input-container>
+                <label>Enter end date</label>
+                <md-datepicker ng-model="$ctrl.endDate" name="endDateField" required></md-datepicker>
+
+                <div ng-messages="workHistoryForm.endDateField.$error">
+                    <div ng-message="valid">The entered value is not a date!</div>
+                    <div ng-message="required">This date is required!</div>
+                </div>
+            </md-input-container>
+
+            <md-input-container class="md-block">
+                <label>Role</label>
+                <input required name="role" ng-model="$ctrl.role">
+                <div ng-messages="workHistoryForm.role.$error">
+                    <div ng-message="required">This is required.</div>
+                </div>
+            </md-input-container>
+            <md-button class="md-raised md-primary" type="submit" ng-disabled="workHistoryForm.$invalid || workHistoryForm.$pristine">Submit</md-button>
+        </form>
+    </md-content>
+</div>

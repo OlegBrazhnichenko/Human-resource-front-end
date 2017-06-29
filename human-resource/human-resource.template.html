@@ -1,0 +1,18 @@
+<div class="container">
+    <div ng-cloak>
+        <md-content>
+            <md-tabs md-dynamic-height md-border-bottom md-selected="$ctrl.selectedIndex">
+                <md-tab label="employee" ng-click="$ctrl.go('/employee')">
+                    <md-content class="md-padding">
+                        <employee></employee>
+                    </md-content>
+                </md-tab>
+                <md-tab label="work history" ng-click="$ctrl.go('/work-history')">
+                    <md-content class="md-padding">
+                        <work-history></work-history>
+                    </md-content>
+                </md-tab>
+            </md-tabs>
+        </md-content>
+    </div>
+</div>

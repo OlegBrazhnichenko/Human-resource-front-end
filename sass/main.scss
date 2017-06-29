@@ -1,0 +1,110 @@
+
+//@import url(https://fonts.googleapis.com/css?family=Roboto:300,400,500);
+
+:root{
+  --employee-input-width     : 315px;
+  --work-history-input-width : 315px;
+  --company-input-width      : 315px;
+}
+
+*{
+  box-sizing: border-box;
+}
+body{
+  font-family: "Roboto", sans-serif;
+  color: #474747;
+  padding: 40px 0;
+}
+
+.container{
+  width: 60%;
+  border-radius: 3px;
+  margin: 0 auto;
+
+  box-shadow: 0 14px 50px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.1);
+  .tabs{
+
+    overflow: hidden;
+    .tab{
+      cursor: pointer;
+      padding: 10px;
+      float: left;
+      &.active{
+        background-color: white;
+      }
+    }
+  }
+  .main-content{
+    padding: 20px;
+    background-color: white;
+    .employee{
+      width: var(--employee-input-width);
+      margin: 0 auto;
+      .btn{
+        width: var(--employee-input-width);
+        font-size: 20px;
+      }
+    }
+  }
+  .work-history{
+    width:var(--work-history-input-width);
+    margin: 0 auto;
+    .bar{
+      width: var(--work-history-input-width);
+    }
+    .inputMaterial{
+      width: var(--work-history-input-width);
+    }
+    .btn{
+      width: var(--work-history-input-width);
+      font-size: 20px;
+    }
+  }
+}
+
+.btn{
+  cursor: pointer;
+  padding: 10px 15px;
+  background: transparent;
+  font-weight: bold;
+  border-radius: 5px;
+  outline: none;
+  &.btn-success{
+    color:  #009688;
+    border: 2px solid #009688;
+  }
+  &.btn-success:hover{
+    transition:0.2s;
+    color: #00776c;
+    background-color: rgba(0,150,136,0.1);
+  }
+}
+a{
+  color: blue;
+  cursor:pointer;
+}
+md-autocomplete > md-autocomplete-wrap > md-progress-linear { display: none; }
+
+md-input-container{
+  margin: 5px 0;
+}
+
+.md-datepicker-input-container{
+  width: 295px;
+  margin-right: 10px;
+}
+.md-button.md-icon-button{
+  margin: 0;
+  padding-left: 0;
+  padding-right : 0;
+}
+.md-datepicker-calendar-icon{
+  margin-left : 0;
+  margin-right: 0;
+}
+._md-datepicker-floating-label._md-datepicker-has-calendar-icon>label:not(.md-no-float):not(.md-container-ignore) {
+  right: 35px;
+}
+.md-icon-button+.md-datepicker-input-container {
+  margin-left: 0;
+}
