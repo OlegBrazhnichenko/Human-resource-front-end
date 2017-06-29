@@ -1,6 +1,6 @@
 # Human resource
 
-Be sure that you are already set up back-end part of the project that you can find on this link
+Be sure that you are already set up back-end part of the project that you can find on [this link](https://github.com/OlegBrazhnichenko/Human-resource-back-end)
 
 ## Installation
 
