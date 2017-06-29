@@ -41,9 +41,9 @@ Hit CTRL-C to stop the server
 ```
 Now you can visit http://127.0.0.1:8080 and see your project running on local server
 
-#### WARNING
-Note that URL provided by "php artisan serve" command have to be the same with the domain url in app.service.js
-If php will serve on the other URL feel free to correct domain url in app.service.js
+### WARNING
+Note that URL provided by `php artisan serve` command have to be the same with the domain url in *app.service.js*
+If php will serve on the other URL feel free to correct domain url in *app.service.js*
 
 ## Useful links for installation on mac and windows
 ### MAC OS
