@@ -2,7 +2,7 @@
 
 Be sure that you are already set up back-end part of the project that you can find on this link
 
-## Instalation
+## Installation
 
 The following instructions are written for ubuntu. You can see useful links for installation
 for other platform at the end of page.
