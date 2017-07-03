@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('employee').controller('EmployeeController',function EmployeeController(Company, Employee, $q) {
+angular.module('employee').controller('EmployeeController',function EmployeeController(Company, Employee, $q, $scope, $mdDialog) {
     var self = this;
 
     self.creatingMode = false;
@@ -53,20 +53,32 @@ angular.module('employee').controller('EmployeeController',function EmployeeCont
             return (item.value.indexOf(lowercaseQuery) === 0);
         };
     }
-    function submit(){
+    function submit(form){
         if(self.creatingMode){
             createNewCompany().then(function(company){
-                createNewEmployee(company.id);
+                createNewEmployee(company.id, form);
             },function(error){
                 console.log(error);
                 return false;
             });
         }else{
-            createNewEmployee(self.selectedCompany.id);
+            createNewEmployee(self.selectedCompany.id, form);
         }
-
     }
-    function createNewEmployee(company_id){
+    function resetForm(form){
+        self.employeeName = "";
+        self.employeeSurname = "";
+        self.employeeEmail = "";
+        self.employeeBirthday = "";
+        self.employeeAddress  = "";
+        self.employeePhoneNumber = "";
+        self.role = "";
+        self.searchCompany = "";
+
+        form.$setPristine();
+        form.$setUntouched();
+    }
+    function createNewEmployee(company_id, form){
         var data = {
             name: self.employeeName,
             surname: self.employeeSurname,
@@ -79,8 +91,10 @@ angular.module('employee').controller('EmployeeController',function EmployeeCont
         };
         var employee = new Employee(data);
         employee.$save().then(function(data){
-            console.log('received', data);
+            $scope.showAlert("success");
+            resetForm(form);
         }, function(error){
+            $scope.showAlert("error");
             console.log('error', error);
         });
     }
@@ -90,4 +104,14 @@ angular.module('employee').controller('EmployeeController',function EmployeeCont
 
         return company.$save();
     }
+    $scope.showAlert = function(status) {
+        $mdDialog.show(
+            $mdDialog.alert()
+                .parent(angular.element(document.querySelector('#popupContainer')))
+                .clickOutsideToClose(true)
+                .title(status)
+                .ok('Got it!')
+
+        );
+    };
 });

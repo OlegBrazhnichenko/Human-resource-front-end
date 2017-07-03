@@ -1,6 +1,6 @@
 <div layout="column" ng-cloak>
     <md-content class="md-padding">
-        <form ng-submit="$ctrl.submit()" name="workHistoryForm">
+        <form ng-submit="$ctrl.submit(workHistoryForm)" name="workHistoryForm" role="form">
             <md-autocomplete flex required ng-cloak
                              md-input-name="employeeField"
                              md-selected-item="$ctrl.selectedEmployee"

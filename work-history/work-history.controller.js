@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('workHistory').controller('WorkHistoryController', function WorkHistoryController(WorkHistory ,Company, Employee, $q,$scope){
+angular.module('workHistory').controller('WorkHistoryController', function WorkHistoryController(WorkHistory ,Company, Employee, $q, $mdDialog, $scope){
     var self = this;
 
     self.creatingMode = false;
@@ -73,20 +73,28 @@ angular.module('workHistory').controller('WorkHistoryController', function WorkH
             return (item.value.indexOf(lowercaseQuery) === 0);
         };
     }
-    function submit(){
+    function submit(form){
         if(self.creatingMode){
             createNewCompany().then(function(company){
-               createNewWorkHistory(company.id);
+                createNewWorkHistory(company.id, form);
             },function(error){
                 console.log(error);
                 return false;
             });
         }else{
-            createNewWorkHistory(self.selectedCompany.id);
+            createNewWorkHistory(self.selectedCompany.id, form);
         }
-
     }
-    function createNewWorkHistory(company_id){
+    function resetForm(form){
+        self.searchCompany = "";
+        self.searchEmployee = "";
+        self.startDate = "";
+        self.endDate = "";
+        self.role = "";
+        form.$setUntouched();
+        form.$setPristine();
+    }
+    function createNewWorkHistory(company_id, form){
         var data = {
             "employee_id" : self.selectedEmployee.id,
             "company_id" : company_id,
@@ -96,9 +104,11 @@ angular.module('workHistory').controller('WorkHistoryController', function WorkH
         };
         var workHistory = new WorkHistory(data);
         workHistory.$save().then(function(data){
-            console.log('received', data);
+            $scope.showAlert("success");
+            resetForm(form);
         }, function(error){
             console.log('error', error);
+            $scope.showAlert("error");
         });
     }
 
@@ -107,4 +117,14 @@ angular.module('workHistory').controller('WorkHistoryController', function WorkH
 
             return company.$save();
     }
+    $scope.showAlert = function(status) {
+        $mdDialog.show(
+            $mdDialog.alert()
+                .parent(angular.element(document.querySelector('#popupContainer')))
+                .clickOutsideToClose(true)
+                .title(status)
+                .ok('Got it!')
+
+        );
+    };
 });
